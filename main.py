@@ -19,5 +19,11 @@ def draw_board(the_board):
     print("   |   |   ")
     if row != 2:
       print("---+---+---")
-    
+
+print("Let's play Tic Tac Toe.  I'll be X, and you can be O.")
+whoseTurn = input("Who should go first? ").upper()
+while whoseTurn != "X" and whoseTurn != "O":
+  print("Please type X or O.")
+  whoseTurn = input("Who should go first? ")
+  
 draw_board(board)
