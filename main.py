@@ -1,3 +1,6 @@
+WHO_SHOULD_GO_FIRST = "Who should go first? "
+COMPUTER = "X"
+PLAYER = "O"
 EMPTY = "empty"
 board = [ 
   EMPTY, EMPTY, EMPTY,
@@ -20,10 +23,13 @@ def draw_board(the_board):
     if row != 2:
       print("---+---+---")
 
-print("Let's play Tic Tac Toe.  I'll be X, and you can be O.")
-whoseTurn = input("Who should go first? ").upper()
-while whoseTurn != "X" and whoseTurn != "O":
-  print("Please type X or O.")
-  whoseTurn = input("Who should go first? ")
+def greet_player():
+  print("Let's play Tic Tac Toe.  I'll be {}, and you can be {}.".format(COMPUTER, PLAYER))
+  choice = input(WHO_SHOULD_GO_FIRST).upper()
+  while choice != COMPUTER and choice != PLAYER:
+    print("Please type {} or {}.".format(COMPUTER, PLAYER))
+    choice = input(WHO_SHOULD_GO_FIRST).upper()
+  return choice
   
+whoseTurn = greet_player()
 draw_board(board)
