@@ -61,7 +61,29 @@ def get_computer_choice(the_board):
     choice = random.randint(1, 9)
     
   return choice
-  
+
+def check_for_winner(the_board):
+  winning_combinations = [
+    [1, 2, 3],
+    [1, 5, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [3, 5, 7],
+    [4, 5, 6],
+    [7, 8, 9]
+  ]
+
+  for combination in winning_combinations:
+    first_symbol = the_board[combination[0] - 1]
+    if first_symbol != EMPTY:
+      second_symbol = the_board[combination[1] - 1]
+      third_symbol = the_board[combination[2] - 1]
+      if first_symbol == second_symbol and first_symbol == third_symbol:
+        return first_symbol
+
+  return NONE
+      
 random.seed()
 whose_turn = greet_player()
 draw_board(board)
@@ -71,7 +93,10 @@ while winner == NONE:
   if whose_turn == PLAYER:
     player_choice = get_player_choice(board)
     board[player_choice - 1] = PLAYER
+    whose_turn = COMPUTER
   else:
     computer_choice = get_computer_choice(board)
     board[computer_choice - 1] = COMPUTER
+    whose_turn = PLAYER
   draw_board(board)
+  winner = check_for_winner(board)
