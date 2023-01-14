@@ -8,6 +8,16 @@ class Game:
   CAT = "CAT"
   EMPTY = "empty"
   NONE = "none"
+  WINNING_COMBINATIONS = [
+  [1, 2, 3],
+  [1, 5, 9],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9],
+  [3, 5, 7],
+  [4, 5, 6],
+  [7, 8, 9]
+]
 
   def __init__(self):
     self.board = [ 
@@ -15,6 +25,7 @@ class Game:
       Game.EMPTY, Game.EMPTY, Game.EMPTY,
       Game.EMPTY, Game.EMPTY, Game.EMPTY
     ]
+    self.winner = Game.NONE
     
   def get_symbol(self, square_number):
     symbol = self.board[square_number - 1]
@@ -66,19 +77,8 @@ class Game:
       
     return choice
   
-  def check_for_winner(self):
-    winning_combinations = [
-      [1, 2, 3],
-      [1, 5, 9],
-      [1, 4, 7],
-      [2, 5, 8],
-      [3, 6, 9],
-      [3, 5, 7],
-      [4, 5, 6],
-      [7, 8, 9]
-    ]
-  
-    for combination in winning_combinations:
+  def check_for_winner(self):  
+    for combination in Game.WINNING_COMBINATIONS:
       first_symbol = self.board[combination[0] - 1]
       if first_symbol != Game.EMPTY:
         second_symbol = self.board[combination[1] - 1]
@@ -91,13 +91,20 @@ class Game:
       
     return Game.NONE
 
+  def report_winner(self):
+    if self.winner == Game.PLAYER:
+      print("Congratulations!  You won!")
+    elif self.winner == Game.COMPUTER:
+      print("Ha!  I won")
+    else:
+      print("Ah, cat got that game!  We tied.")
+    
   def play(self):
     random.seed()
     whose_turn = self.greet_player()
     self.draw_board()
     
-    winner = Game.NONE
-    while winner == Game.NONE:
+    while self.winner == Game.NONE:
       if whose_turn == Game.PLAYER:
         player_choice = self.get_player_choice()
         self.board[player_choice - 1] = Game.PLAYER
@@ -107,14 +114,9 @@ class Game:
         self.board[computer_choice - 1] = Game.COMPUTER
         whose_turn = Game.PLAYER
       self.draw_board()
-      winner = self.check_for_winner()
-    
-    if winner == Game.PLAYER:
-      print("Congratulations!  You won!")
-    elif winner == Game.COMPUTER:
-      print("Ha!  I won")
-    else:
-      print("Ah, cat got that game!  We tied.")
+      self.winner = self.check_for_winner()
+
+    self.report_winner()
 
 game = Game()
 game.play()
