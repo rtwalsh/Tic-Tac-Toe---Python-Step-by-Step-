@@ -87,27 +87,30 @@ def check_for_winner(the_board):
     return CAT
     
   return NONE
-      
-random.seed()
-whose_turn = greet_player()
-draw_board(board)
 
-winner = NONE
-while winner == NONE:
-  if whose_turn == PLAYER:
-    player_choice = get_player_choice(board)
-    board[player_choice - 1] = PLAYER
-    whose_turn = COMPUTER
-  else:
-    computer_choice = get_computer_choice(board)
-    board[computer_choice - 1] = COMPUTER
-    whose_turn = PLAYER
+def play():
+  random.seed()
+  whose_turn = greet_player()
   draw_board(board)
-  winner = check_for_winner(board)
+  
+  winner = NONE
+  while winner == NONE:
+    if whose_turn == PLAYER:
+      player_choice = get_player_choice(board)
+      board[player_choice - 1] = PLAYER
+      whose_turn = COMPUTER
+    else:
+      computer_choice = get_computer_choice(board)
+      board[computer_choice - 1] = COMPUTER
+      whose_turn = PLAYER
+    draw_board(board)
+    winner = check_for_winner(board)
+  
+  if winner == PLAYER:
+    print("Congratulations!  You won!")
+  elif winner == COMPUTER:
+    print("Ha!  I won")
+  else:
+    print("Ah, cat got that game!  We tied.")
 
-if winner == PLAYER:
-  print("Congratulations!  You won!")
-elif winner == COMPUTER:
-  print("Ha!  I won")
-else:
-  print("Ah, cat got that game!  We tied.")
+play()
