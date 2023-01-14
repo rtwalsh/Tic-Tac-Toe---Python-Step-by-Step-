@@ -4,6 +4,7 @@ import time
 WHO_SHOULD_GO_FIRST = "Who should go first? "
 COMPUTER = "X"
 PLAYER = "O"
+CAT = "CAT"
 EMPTY = "empty"
 NONE = "none"
 board = [ 
@@ -82,6 +83,9 @@ def check_for_winner(the_board):
       if first_symbol == second_symbol and first_symbol == third_symbol:
         return first_symbol
 
+  if the_board.count(EMPTY) == 0:
+    return CAT
+    
   return NONE
       
 random.seed()
@@ -100,3 +104,10 @@ while winner == NONE:
     whose_turn = PLAYER
   draw_board(board)
   winner = check_for_winner(board)
+
+if winner == PLAYER:
+  print("Congratulations!  You won!")
+elif winner == COMPUTER:
+  print("Ha!  I won")
+else:
+  print("Ah, cat got that game!  We tied.")
