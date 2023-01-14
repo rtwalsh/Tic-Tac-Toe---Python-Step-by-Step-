@@ -5,6 +5,7 @@ WHO_SHOULD_GO_FIRST = "Who should go first? "
 COMPUTER = "X"
 PLAYER = "O"
 EMPTY = "empty"
+NONE = "none"
 board = [ 
   EMPTY, EMPTY, EMPTY,
   EMPTY, EMPTY, EMPTY,
@@ -62,13 +63,15 @@ def get_computer_choice(the_board):
   return choice
   
 random.seed()
-whoseTurn = greet_player()
+whose_turn = greet_player()
 draw_board(board)
 
-player_choice = get_player_choice(board)
-board[player_choice - 1] = PLAYER
-draw_board(board)
-
-computer_choice = get_computer_choice(board)
-board[computer_choice - 1] = COMPUTER
-draw_board(board)
+winner = NONE
+while winner == NONE:
+  if whose_turn == PLAYER:
+    player_choice = get_player_choice(board)
+    board[player_choice - 1] = PLAYER
+  else:
+    computer_choice = get_computer_choice(board)
+    board[computer_choice - 1] = COMPUTER
+  draw_board(board)
