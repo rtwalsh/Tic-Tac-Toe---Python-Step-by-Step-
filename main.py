@@ -1,3 +1,6 @@
+import random
+import time
+
 WHO_SHOULD_GO_FIRST = "Who should go first? "
 COMPUTER = "X"
 PLAYER = "O"
@@ -47,10 +50,25 @@ def get_player_choice(the_board):
       else:
         valid_choice = True
   return choice
+
+def get_computer_choice(the_board):
+  print("My turn.")
+  time.sleep(random.randint(25, 75)/100.0)
+  choice = random.randint(1, 9)
+  while the_board[choice - 1] != EMPTY:
+    time.sleep(random.randint(1, 5)/10.0)
+    choice = random.randint(1, 9)
+    
+  return choice
   
+random.seed()
 whoseTurn = greet_player()
 draw_board(board)
 
 player_choice = get_player_choice(board)
 board[player_choice - 1] = PLAYER
+draw_board(board)
+
+computer_choice = get_computer_choice(board)
+board[computer_choice - 1] = COMPUTER
 draw_board(board)
