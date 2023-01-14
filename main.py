@@ -30,6 +30,27 @@ def greet_player():
     print("Please type {} or {}.".format(COMPUTER, PLAYER))
     choice = input(WHO_SHOULD_GO_FIRST).upper()
   return choice
+
+def get_player_choice(the_board):
+  print("Your turn.")
+  valid_choice = False
+  while not valid_choice:
+    choice = input("Pick a square by typing its number: ")
+    if not choice.isdigit():
+      print("Your selection must be a number between 1 and 9.")
+    else:
+      choice = int(choice)
+      if choice < 1 or choice > 9:
+        print("Please pick a number between 1 and 9.")
+      elif the_board[choice - 1] != EMPTY:
+        print("That square has already been taken.")
+      else:
+        valid_choice = True
+  return choice
   
 whoseTurn = greet_player()
+draw_board(board)
+
+player_choice = get_player_choice(board)
+board[player_choice - 1] = PLAYER
 draw_board(board)
